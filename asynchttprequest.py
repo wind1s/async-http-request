@@ -68,7 +68,7 @@ async def limited_as_completed(coros: Iterable[Any], limit: int) -> Iterable[Any
 
 def run_async_requests(
     requests_data: Iterable[Any],
-    process_request: Union[ParseRequest, Iterable[ParseRequest]],
+    parse_request: Union[ParseRequest, Iterable[ParseRequest]],
     base_url: Optional[str] = None,
     limit: int = 1000,
 ) -> None:
@@ -78,10 +78,10 @@ def run_async_requests(
 
     async def launch():
         async with ClientSession(base_url=base_url) as session:
-            if isinstance(process_request, Iterable):
-                coros = (proc(session, data) for proc, data in zip(process_request, requests_data))
+            if isinstance(parse_request, Iterable):
+                coros = (proc(session, data) for proc, data in zip(parse_request, requests_data))
             else:
-                coros = (process_request(session, data) for data in requests_data)
+                coros = (parse_request(session, data) for data in requests_data)
 
             return await limited_as_completed(coros, limit)
 

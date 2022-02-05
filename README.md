@@ -6,7 +6,7 @@ You can manually call an async request using the aiohttp ```ClientSession.reques
 
 #### Standard use case
 ```
-# ProcessRequest function type.
+# ParseRequest function type.
 def parse_request(session, async_request):
     response = async_request.send(session)
 
@@ -66,5 +66,5 @@ run_async_requests(requests, database_wrapper(database))
 ```
 
 ## Sources and inspiration
-The core functionality, the function ```limited_as_completed``` is inspired from here:
+The core functionality, the function ```limited_as_completed```, is inspired from here:
 https://www.artificialworlds.net/blog/2017/06/12/making-100-million-requests-with-python-aiohttp/
