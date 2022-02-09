@@ -21,9 +21,17 @@ class AsyncRequest:
     def method(self) -> str:
         return self.__data["method"]
 
+    @method.setter
+    def method(self, method: str) -> str:
+        self.__data["method"] = method
+
     @property
     def url(self) -> str:
         return self.__data["url"]
+
+    @url.setter
+    def url(self, url: str) -> str:
+        self.__data["url"] = url
 
     def get(self, key: str) -> str:
         return self.__data[key]
