@@ -1,4 +1,8 @@
 """
+* Copyright (c) 2022, William Minidis <william.minidis@protonmail.com>
+*
+* SPDX-License-Identifier: BSD-2-Clause
+
 Provides functionality to make async http requests.
 """
 from typing import Optional, Any, Iterable, Callable, Union
@@ -19,19 +23,19 @@ class AsyncRequest:
 
     @property
     def method(self) -> str:
-        return self.__data["method"]
+        return self.get("method")
 
     @method.setter
     def method(self, method: str) -> str:
-        self.__data["method"] = method
+        self.set("method", method)
 
     @property
     def url(self) -> str:
-        return self.__data["url"]
+        return self.get("url")
 
     @url.setter
     def url(self, url: str) -> str:
-        self.__data["url"] = url
+        self.set("url", url)
 
     def get(self, key: str) -> str:
         return self.__data[key]
@@ -82,6 +86,8 @@ def run_async_requests(
 ) -> None:
     """
     Creates coroutines for all requests and runs them async.
+    Accepts an iterable with request parsing callbacks for each element in requests_data,
+    or a single callback to parse all requests.
     """
 
     async def launch():
