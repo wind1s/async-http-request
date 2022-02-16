@@ -10,6 +10,7 @@ from itertools import islice
 from asyncio import ensure_future, sleep, run
 from aiohttp import ClientSession
 
+# Standard function type to parse the async responses
 ParseRequest = Callable[ClientSession, Any]
 
 
@@ -50,6 +51,10 @@ class AsyncRequest:
         self.set(key, value)
 
     async def send(self, session: ClientSession, **extra_data: Any) -> str:
+        """
+        Sends a async request with stored request data + extra supplied data.
+        Raises if response status is bad.
+        """
         async with session.request(**self.__data, **extra_data) as response:
             response.raise_for_status()
             return await response.read()
